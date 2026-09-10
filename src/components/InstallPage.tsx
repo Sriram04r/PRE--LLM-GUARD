@@ -60,11 +60,11 @@ export function InstallPage() {
     <main className="flex min-h-screen flex-col bg-[#FDFCFB] text-[#111827]">
       <header className="sticky top-0 z-30 border-b border-[#ECE9E4]/80 bg-[#FDFCFB]/85 backdrop-blur-xl">
         <nav className="mx-auto flex h-16 w-full max-w-[1180px] items-center justify-between px-8 max-sm:px-4">
-          <a href={appPath("")} className="flex items-center gap-3" aria-label="PrivacyLens home">
+          <a href={appPath("")} className="flex items-center gap-3" aria-label="PRE LLM GUARD home">
             <div className="flex h-8 w-8 items-center justify-center rounded-[10px] border-2 border-[#079B8E] bg-[#EAF8F5] text-[#079B8E]">
               <ShieldCheck size={21} strokeWidth={2.3} />
             </div>
-            <span className="text-base font-bold tracking-[-0.02em] text-[#101827]">PrivacyLens</span>
+            <span className="text-base font-bold tracking-[-0.02em] text-[#101827]">PRE LLM GUARD</span>
           </a>
           <div className="flex items-center gap-6 max-sm:gap-3">
             <a
@@ -100,14 +100,14 @@ export function InstallPage() {
           <div>
             <a href={appPath("")} className="inline-flex items-center gap-2 text-sm font-semibold text-[#079B8E]">
               <ArrowLeft size={18} />
-              Back to PrivacyLens
+              Back to PRE LLM GUARD
             </a>
 
             <div className="mt-12 flex items-center gap-3">
               <div className="flex h-12 w-12 items-center justify-center rounded-xl border-2 border-[#079B8E] bg-[#EAF8F5] text-[#079B8E]">
                 <ShieldCheck size={30} />
               </div>
-              <p className="text-2xl font-bold tracking-tight">PrivacyLens</p>
+              <p className="text-2xl font-bold tracking-tight">PRE LLM GUARD</p>
             </div>
 
             <h1 className="mt-10 max-w-[580px] text-6xl font-bold leading-[1.04] tracking-[-0.04em] max-sm:text-4xl">
@@ -115,7 +115,7 @@ export function InstallPage() {
             </h1>
             <p className="mt-6 max-w-[560px] text-lg leading-8 text-[#344154]">
               Load the Chrome extension from the production build, open a supported AI chat,
-              and PrivacyLens will block personal data before it can be sent.
+              and PRE LLM GUARD will block personal data before it can be sent.
             </p>
 
             <div className="mt-8 flex flex-wrap items-center gap-4">

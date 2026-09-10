@@ -25,6 +25,7 @@ import {
 } from "../lib/visual-obfuscator";
 import type { PIIEntity } from "../types";
 import { appPath } from "../lib/routes";
+import { DemoBackground } from "./DemoBackground";
 
 type ScanStatus = "idle" | "scanning" | "clean" | "blocked";
 type ReviewMode = "message" | "attachment";
@@ -297,7 +298,7 @@ export function ChatPage() {
           issues.push({
             name: file.name,
             status: "unscannable",
-            reason: `This file is ${formatBytes(file.size)}. PrivacyLens scans files up to ${formatBytes(MAX_DEMO_FILE_BYTES)}.`,
+            reason: `This file is ${formatBytes(file.size)}. PRE LLM GUARD scans files up to ${formatBytes(MAX_DEMO_FILE_BYTES)}.`,
           });
           continue;
         }
@@ -330,7 +331,7 @@ export function ChatPage() {
             issues.push({
               name: file.name,
               status: "unscannable",
-              reason: entry.reason?.message || "PrivacyLens could not scan this file.",
+              reason: entry.reason?.message || "PRE LLM GUARD could not scan this file.",
             });
             return;
           }
@@ -339,7 +340,7 @@ export function ChatPage() {
             issues.push({
               name: file.name,
               status: "unscannable",
-              reason: "PrivacyLens could not find readable text in this file.",
+              reason: "PRE LLM GUARD could not find readable text in this file.",
             });
             return;
           }
@@ -424,7 +425,7 @@ export function ChatPage() {
           {
             name: summarizeFiles(selectedFiles),
             status: "unscannable",
-            reason: err?.message || "PrivacyLens could not scan this file.",
+            reason: err?.message || "PRE LLM GUARD could not scan this file.",
           },
         ]);
         setSafeFileCount(0);
@@ -499,17 +500,17 @@ export function ChatPage() {
     setAttachedFiles(
       pendingAttachmentRecords.length
         ? pendingAttachmentRecords.map((record) => ({
-            name: record.name,
-            text: record.text,
-            redacted: false,
-          }))
+          name: record.name,
+          text: record.text,
+          redacted: false,
+        }))
         : [
-            {
-              name: pendingAttachmentName,
-              text: pendingOriginalText || "[Original files attached without scanning]",
-              redacted: false,
-            },
-          ]
+          {
+            name: pendingAttachmentName,
+            text: pendingOriginalText || "[Original files attached without scanning]",
+            redacted: false,
+          },
+        ]
     );
     resetReview();
     clear();
@@ -565,22 +566,24 @@ export function ChatPage() {
   }, [clear, resetReview]);
 
   return (
-    <div className="h-full flex flex-col">
-      <div className="flex justify-center px-4 pt-5 pb-3">
-        <div className="flex items-center justify-between w-full max-w-4xl px-6 py-3.5 rounded-full bg-[var(--color-surface)]/80 backdrop-blur-xl border border-[var(--color-border)] shadow-[0_2px_8px_rgba(0,0,0,0.04)]">
+    <div className="relative h-full flex flex-col overflow-hidden bg-black">
+      <DemoBackground />
+
+      <div className="relative z-10 flex justify-center px-4 pt-2 pb-1.5">
+        <div className="flex items-center justify-between w-full max-w-5xl lg:max-w-6xl px-6 py-2 rounded-full bg-white/75 backdrop-blur-xl border border-white/80 shadow-[0_4px_20px_rgba(0,0,0,0.04),0_1px_3px_rgba(0,0,0,0.02)] transition-all hover:bg-white/85">
           <a
             href={appPath("")}
             className="group flex items-center gap-3 rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]/30"
-            title="Back to the PrivacyLens home page"
+            title="Back to the PRE LLM GUARD home page"
           >
-            <div className="w-10 h-10 rounded-xl bg-[var(--color-accent)]/10 flex items-center justify-center transition-colors group-hover:bg-[var(--color-accent)]/20">
+            <div className="w-10 h-10 rounded-xl bg-[var(--color-accent)]/10 border border-[var(--color-accent)]/20 flex items-center justify-center transition-all group-hover:bg-[var(--color-accent)]/20 group-hover:scale-105 shadow-sm">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" strokeWidth="2">
                 <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
               </svg>
             </div>
             <div>
               <span className="text-lg font-bold tracking-tight text-[var(--color-text)]">
-                PrivacyLens
+                PRE LLM GUARD
               </span>
               <p className="text-[11px] text-[var(--color-text-secondary)] font-mono -mt-0.5 max-sm:hidden">
                 See what AI sees before AI sees it
@@ -675,11 +678,10 @@ export function ChatPage() {
           >
             <div className="flex justify-center px-4 pb-2">
               <div
-                className={`w-full max-w-4xl px-5 py-3 rounded-2xl flex items-center gap-3 text-sm font-medium transition-colors ${
-                  scanStatus === "blocked"
-                    ? "bg-[#E54D2E]/10 border border-[#E54D2E]/20 text-[#E54D2E]"
-                    : "bg-[#12A594]/10 border border-[#12A594]/20 text-[#12A594]"
-                }`}
+                className={`w-full max-w-5xl lg:max-w-6xl px-5 py-3 rounded-2xl flex items-center gap-3 text-sm font-medium transition-colors ${scanStatus === "blocked"
+                  ? "bg-[#E54D2E]/10 border border-[#E54D2E]/20 text-[#E54D2E]"
+                  : "bg-[#12A594]/10 border border-[#12A594]/20 text-[#12A594]"
+                  }`}
               >
                 {scanStatus === "blocked" && (
                   <>
@@ -707,7 +709,7 @@ export function ChatPage() {
         )}
       </AnimatePresence>
 
-      <div className="flex-1 flex overflow-hidden">
+      <div className="relative z-10 flex-1 flex overflow-hidden">
         <div className="flex-1 flex flex-col min-w-0">
           <MessageList
             messages={messages}

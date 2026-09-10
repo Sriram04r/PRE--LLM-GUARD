@@ -114,5 +114,5 @@ if (fs.existsSync(distPath)) {
 
 const PORT = process.env.PORT || 3001;
 app.listen(Number(PORT), "0.0.0.0", () => {
-  console.log(`PrivacyLens API server running on port ${PORT}`);
+  console.log(`PRE LLM GUARD API server running on port ${PORT}`);
 });

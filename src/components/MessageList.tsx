@@ -171,35 +171,40 @@ export function MessageList({ messages, loading, onSampleFile, onExampleText }: 
 
   if (messages.length === 0 && !loading) {
     return (
-      <div className="flex-1 overflow-y-auto scrollbar-thin flex px-6 py-6">
-        <div className="m-auto text-center max-w-2xl">
-          <div className="w-16 h-16 rounded-2xl bg-[var(--color-accent)]/10 flex items-center justify-center mx-auto mb-5">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-[var(--color-accent)]">
-              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-            </svg>
+      <div className="flex-1 overflow-y-auto scrollbar-thin flex px-6 py-4">
+        <div className="m-auto text-center w-full max-w-5xl py-2">
+          {/* Glowing Shield Icon */}
+          <div className="relative inline-flex items-center justify-center mb-4">
+            <div className="absolute inset-0 rounded-3xl bg-[var(--color-accent)]/20 blur-xl animate-pulse" />
+            <div className="relative w-18 h-18 lg:w-20 lg:h-20 rounded-3xl bg-gradient-to-b from-white/95 to-white/70 backdrop-blur-xl border border-[var(--color-accent)]/30 flex items-center justify-center shadow-[0_8px_30px_rgba(18,165,148,0.2)]">
+              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" className="text-[var(--color-accent)]">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+              </svg>
+            </div>
           </div>
-          <h2 className="text-xl font-semibold tracking-tight text-[var(--color-text)] mb-2">
+
+          <h2 className="text-2xl lg:text-4xl font-bold tracking-tight text-white mb-2 drop-shadow-sm">
             See what AI sees before AI sees it
           </h2>
-          <p className="text-sm leading-relaxed text-[var(--color-text-secondary)] max-w-[48ch] mx-auto mb-6">
+          <p className="text-base lg:text-lg leading-relaxed text-white/95 max-w-3xl mx-auto mb-6 font-normal drop-shadow-sm">
             This is a real AI chat with a privacy gate in front of it. Type a message or
             upload files — anything sensitive is caught before it leaves your browser.
           </p>
 
           {/* How it works */}
-          <div className="mb-7 grid grid-cols-3 gap-2 max-sm:grid-cols-1">
+          <div className="mb-6 grid grid-cols-3 gap-4 max-sm:grid-cols-1">
             {HOW_IT_WORKS.map((item) => (
               <div
                 key={item.step}
-                className="rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] px-3 py-3 text-left"
+                className="group relative rounded-2xl border border-white bg-white p-4 lg:p-5 text-left shadow-lg transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl"
               >
-                <div className="flex items-center gap-2">
-                  <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[var(--color-accent)] text-[10px] font-bold text-white">
+                <div className="flex items-center gap-3">
+                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-gradient-to-r from-[var(--color-accent)] to-[#0E8578] text-xs lg:text-sm font-bold text-white shadow-sm">
                     {item.step}
                   </span>
-                  <p className="text-xs font-bold text-[var(--color-text)]">{item.title}</p>
+                  <p className="text-base lg:text-lg font-bold text-[var(--color-text)]">{item.title}</p>
                 </div>
-                <p className="mt-1.5 text-[11px] leading-4 text-[var(--color-text-secondary)]">
+                <p className="mt-2 text-xs lg:text-sm leading-relaxed text-[var(--color-text-secondary)]">
                   {item.text}
                 </p>
               </div>
@@ -208,30 +213,32 @@ export function MessageList({ messages, loading, onSampleFile, onExampleText }: 
 
           {/* Realistic scenarios */}
           <div className="mb-6">
-            <p className="text-[11px] font-mono text-[var(--color-text-secondary)] uppercase tracking-wider mb-2">
-              Try a real scenario — click to fill the composer
+            <p className="text-xs lg:text-sm font-mono font-semibold text-white uppercase tracking-wider mb-3 flex items-center justify-center gap-2.5 drop-shadow-sm">
+              <span className="w-8 h-[1px] bg-white/40" />
+              <span>Try a real scenario — click to fill the composer</span>
+              <span className="w-8 h-[1px] bg-white/40" />
             </p>
-            <div className="grid grid-cols-3 gap-2 max-sm:grid-cols-1">
+            <div className="grid grid-cols-3 gap-4 max-sm:grid-cols-1">
               {SCENARIOS.map((scenario) => (
                 <button
                   key={scenario.id}
                   onClick={() => onExampleText?.(scenario.text)}
-                  className="group flex flex-col gap-1.5 rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] px-3 py-3 text-left transition-all hover:border-[var(--color-accent)]/40 hover:bg-[var(--color-accent)]/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]/25"
+                  className="group relative flex flex-col gap-3 rounded-2xl border border-white bg-white p-4 lg:p-5 text-left transition-all duration-200 hover:-translate-y-0.5 hover:border-[var(--color-accent)]/50 hover:shadow-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)]/30"
                 >
-                  <span className="flex items-center gap-2 text-[var(--color-text)]">
-                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-[var(--color-canvas)] text-[var(--color-text-secondary)] transition-colors group-hover:bg-[var(--color-accent)]/10 group-hover:text-[var(--color-accent)]">
+                  <span className="flex items-center gap-3 text-[var(--color-text)]">
+                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-slate-50 border border-slate-200/80 text-[var(--color-text-secondary)] transition-colors group-hover:bg-[var(--color-accent)]/10 group-hover:text-[var(--color-accent)] group-hover:border-[var(--color-accent)]/30">
                       <ScenarioIcon id={scenario.id} />
                     </span>
-                    <span className="text-xs font-bold leading-tight">{scenario.title}</span>
+                    <span className="text-base lg:text-lg font-bold leading-tight">{scenario.title}</span>
                   </span>
-                  <span className="text-[11px] leading-4 text-[var(--color-text-secondary)]">
+                  <span className="text-xs lg:text-sm leading-relaxed text-[var(--color-text-secondary)]">
                     {scenario.description}
                   </span>
-                  <span className="mt-0.5 flex flex-wrap gap-1">
+                  <span className="mt-auto pt-1.5 flex flex-wrap gap-1.5">
                     {scenario.catches.map((label) => (
                       <span
                         key={label}
-                        className="rounded-full bg-[#E54D2E]/8 px-1.5 py-0.5 font-mono text-[9px] font-semibold uppercase tracking-wider text-[#C13215]"
+                        className="rounded-md bg-[#E54D2E]/8 border border-[#E54D2E]/15 px-2.5 py-1 font-mono text-xs font-bold uppercase tracking-wider text-[#C13215]"
                       >
                         {label}
                       </span>
@@ -244,38 +251,40 @@ export function MessageList({ messages, loading, onSampleFile, onExampleText }: 
 
           {/* Sample files */}
           <div>
-            <p className="text-[11px] font-mono text-[var(--color-text-secondary)] uppercase tracking-wider mb-3">
-              Or scan a sample file with planted personal data
+            <p className="text-xs lg:text-sm font-mono font-semibold text-white uppercase tracking-wider mb-3 flex items-center justify-center gap-2.5 drop-shadow-sm">
+              <span className="w-8 h-[1px] bg-white/40" />
+              <span>Or scan a sample file with planted personal data</span>
+              <span className="w-8 h-[1px] bg-white/40" />
             </p>
-            <div className="grid grid-cols-3 gap-2 max-w-md mx-auto">
+            <div className="grid grid-cols-6 max-lg:grid-cols-3 max-sm:grid-cols-2 gap-3.5 max-w-4xl mx-auto">
               {SAMPLE_FILES.map((sample) => (
                 <button
                   key={sample.name}
                   onClick={() => handleSampleClick(sample)}
-                  className="flex flex-col items-center gap-1.5 px-3 py-3 rounded-xl bg-[var(--color-surface)] border border-[var(--color-border)] hover:border-[var(--color-accent)]/40 hover:bg-[var(--color-accent)]/5 transition-all text-center group"
+                  className="flex flex-col items-center gap-2.5 px-3.5 py-4 rounded-2xl bg-white border border-white hover:border-[var(--color-accent)]/50 hover:shadow-xl hover:-translate-y-0.5 transition-all text-center group"
                 >
-                  <div className="w-8 h-8 rounded-lg bg-[var(--color-canvas)] flex items-center justify-center group-hover:bg-[var(--color-accent)]/10 transition-colors">
+                  <div className="w-10 h-10 rounded-xl bg-slate-50 border border-slate-200/80 flex items-center justify-center group-hover:bg-[var(--color-accent)]/10 group-hover:border-[var(--color-accent)]/30 transition-colors shadow-xs">
                     {sample.type === "pdf" && (
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-[#E54D2E]">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" className="text-[#E54D2E]">
                         <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
                         <path d="M14 2v6h6" />
                       </svg>
                     )}
                     {sample.type === "image" && (
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-[#12A594]">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" className="text-[#12A594]">
                         <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
                         <circle cx="8.5" cy="8.5" r="1.5" />
                         <path d="m21 15-5-5L5 21" />
                       </svg>
                     )}
                     {sample.type === "text" && (
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-[#F5A623]">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" className="text-[#F5A623]">
                         <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
                         <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8" />
                       </svg>
                     )}
                   </div>
-                  <span className="text-[11px] font-medium text-[var(--color-text)] leading-tight">
+                  <span className="text-xs lg:text-sm font-bold text-[var(--color-text)] leading-tight">
                     {sample.label}
                   </span>
                 </button>
@@ -289,7 +298,7 @@ export function MessageList({ messages, loading, onSampleFile, onExampleText }: 
 
   return (
     <div className="flex-1 overflow-y-auto px-4 py-6 scrollbar-thin">
-      <div className="max-w-3xl mx-auto space-y-4">
+      <div className="max-w-4xl lg:max-w-5xl mx-auto space-y-4">
         <AnimatePresence initial={false}>
           {messages.map((msg) => (
             <motion.div
@@ -300,11 +309,10 @@ export function MessageList({ messages, loading, onSampleFile, onExampleText }: 
               className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
             >
               <div
-                className={`max-w-[80%] rounded-2xl px-5 py-3.5 text-[15px] leading-relaxed ${
-                  msg.role === "user"
+                className={`max-w-[80%] rounded-2xl px-5 py-3.5 text-[15px] leading-relaxed ${msg.role === "user"
                     ? "bg-[var(--color-text)] text-white rounded-br-md"
                     : "bg-[var(--color-surface)] border border-[var(--color-border)] text-[var(--color-text)] rounded-bl-md shadow-[0_2px_8px_rgba(0,0,0,0.04)]"
-                }`}
+                  }`}
               >
                 {msg.role === "assistant" ? (
                   <MarkdownMessage content={msg.content} />

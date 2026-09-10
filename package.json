@@ -1,5 +1,5 @@
 {
-  "name": "privacylens",
+  "name": "pre-llm-guard",
   "private": true,
   "version": "0.1.0",
   "type": "module",
@@ -32,6 +32,7 @@
     "cors": "^2.8.5",
     "express": "^4.21.0",
     "framer-motion": "^11.0.0",
+    "gsap": "^3.15.0",
     "jspdf": "^4.2.1",
     "lucide-react": "^0.400.0",
     "pdfjs-dist": "^4.0.0",

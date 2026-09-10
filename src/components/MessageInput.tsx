@@ -2,6 +2,7 @@ import { useState, useRef, useCallback, useEffect, useMemo } from "react";
 import type { DetectionResult, PIIEntity, Severity } from "../types";
 import { SEVERITY_MAP } from "../types";
 import type { AttachedFile } from "./ChatPage";
+import DotField from "./DotField";
 
 interface Props {
   text: string;
@@ -176,10 +177,10 @@ export function MessageInput({
 
   return (
     <div
-      className={`border-t bg-[var(--color-surface)]/80 backdrop-blur-xl transition-colors ${
+      className={`relative border-t bg-white transition-all shadow-[0_-8px_30px_rgba(0,0,0,0.12)] overflow-hidden ${
         dragOver
-          ? "border-[var(--color-accent)] bg-[var(--color-accent)]/5"
-          : "border-[var(--color-border)]"
+          ? "border-[var(--color-accent)] ring-2 ring-[var(--color-accent)]/30"
+          : "border-slate-200"
       }`}
       onDragOver={(e) => {
         e.preventDefault();
@@ -188,7 +189,25 @@ export function MessageInput({
       onDragLeave={() => setDragOver(false)}
       onDrop={handleDrop}
     >
-      <div className="max-w-3xl mx-auto px-4 py-3">
+      {/* React background with black dots animation above the footer */}
+      <div className="absolute inset-0 pointer-events-none opacity-40 z-0">
+        <DotField
+          dotRadius={1.5}
+          dotSpacing={14}
+          bulgeStrength={50}
+          glowRadius={120}
+          sparkle={false}
+          waveAmplitude={0}
+          cursorRadius={300}
+          cursorForce={0.1}
+          bulgeOnly
+          gradientFrom="#000000"
+          gradientTo="#475569"
+          glowColor="#000000"
+        />
+      </div>
+
+      <div className="relative z-10 max-w-5xl lg:max-w-6xl mx-auto px-4 py-3">
         {modelLoading && (
           <div className="mb-2 flex items-center gap-2 text-xs font-mono px-3 py-2 rounded-lg bg-[#F5A623]/5 border border-[#F5A623]/15 text-[#9A6700]">
             <div className="w-3 h-3 border-2 border-current border-t-transparent rounded-full animate-spin" />
@@ -285,7 +304,7 @@ export function MessageInput({
           </div>
         )}
 
-        <div className="flex items-end gap-2">
+        <div className="flex items-end gap-3.5">
           <input
             ref={fileInputRef}
             type="file"
@@ -294,29 +313,31 @@ export function MessageInput({
             onChange={handleFileSelect}
             className="hidden"
           />
+          {/* Full White Upload Attachment Button Grid */}
           <button
             onClick={() => fileInputRef.current?.click()}
             disabled={disabled || fileScanning}
-            className="flex-shrink-0 w-11 h-11 rounded-full flex items-center justify-center border border-[var(--color-border)] text-[var(--color-text-secondary)] hover:bg-[var(--color-canvas)] transition-colors disabled:opacity-40"
+            className="flex-shrink-0 w-14 h-14 lg:w-16 lg:h-16 rounded-2xl flex items-center justify-center border border-slate-200 bg-white text-[var(--color-text)] hover:text-black hover:bg-white hover:border-slate-300 shadow-md hover:shadow-lg transition-all disabled:opacity-40"
             title="Upload files (PDF, image, text)"
             aria-label="Upload files"
           >
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
               <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48" />
             </svg>
           </button>
 
+          {/* Full White Composer Input Grid */}
           <div
-            className={`flex-1 relative rounded-2xl border bg-[var(--color-canvas)] transition-all focus-within:ring-2 ${
+            className={`flex-1 relative rounded-2xl border bg-white shadow-md transition-all focus-within:ring-2 ${
               showWarning
-                ? "border-[#E54D2E]/40 focus-within:ring-[#E54D2E]/15 focus-within:border-[#E54D2E]/50"
-                : "border-[var(--color-border)] focus-within:ring-[var(--color-accent)]/20 focus-within:border-[var(--color-accent)]/40"
+                ? "border-[#E54D2E]/40 focus-within:ring-[#E54D2E]/20 focus-within:border-[#E54D2E]/50"
+                : "border-slate-200 hover:border-slate-300 focus-within:ring-slate-300 focus-within:border-slate-400"
             }`}
           >
             <div
               ref={mirrorRef}
               aria-hidden="true"
-              className="composer-mirror px-4 py-3 text-[15px] leading-relaxed"
+              className="composer-mirror px-6 py-4 text-lg lg:text-xl leading-relaxed"
             >
               <ComposerHighlights text={text} entities={result?.entities ?? []} />
             </div>
@@ -328,41 +349,45 @@ export function MessageInput({
               onScroll={syncMirrorScroll}
               placeholder={attachedFiles.length ? "Ask about the attached files..." : "Type a message or drop files..."}
               rows={1}
-              className="relative block w-full resize-none rounded-2xl bg-transparent px-4 py-3 text-[15px] leading-relaxed text-[var(--color-text)] placeholder:text-[var(--color-text-secondary)]/50 focus:outline-none"
+              className="relative block w-full resize-none rounded-2xl bg-white px-6 py-4 text-lg lg:text-xl leading-relaxed text-[var(--color-text)] placeholder:text-[var(--color-text-secondary)]/60 focus:outline-none"
             />
           </div>
 
+          {/* Full White Send Symbol Grid */}
           <button
             onClick={handleSubmit}
             disabled={!canSend}
             aria-label="Send message"
             title={blocked && text.trim() ? "Personal data detected — opens the review panel" : "Send message"}
-            className={`flex-shrink-0 w-11 h-11 rounded-full flex items-center justify-center transition-all active:scale-95 ${
+            className={`flex-shrink-0 w-14 h-14 lg:w-16 lg:h-16 rounded-2xl flex items-center justify-center border border-slate-200 shadow-md transition-all active:scale-95 ${
               blocked && text.trim()
-                ? "bg-[#E54D2E] text-white hover:opacity-90"
+                ? "bg-[#E54D2E] text-white hover:opacity-95 shadow-[0_6px_20px_rgba(229,77,46,0.35)]"
                 : canSend
-                  ? "bg-[var(--color-text)] text-white hover:opacity-90"
-                  : "bg-[var(--color-border)] text-[var(--color-text-secondary)] cursor-not-allowed"
+                  ? "bg-white text-[var(--color-text)] hover:text-black hover:border-slate-300 hover:shadow-lg"
+                  : "bg-white text-slate-300 cursor-not-allowed"
             }`}
           >
             {scanning ? (
-              <div className="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin" />
+              <div className="w-6 h-6 border-2 border-current border-t-transparent rounded-full animate-spin" />
             ) : blocked && text.trim() ? (
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                 <path d="M12 8v4m0 4h.01" />
               </svg>
             ) : (
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
                 <path d="M22 2 11 13M22 2l-7 20-4-9-9-4 20-7z" />
               </svg>
             )}
           </button>
         </div>
 
-        <p className="mt-2 text-[11px] text-[var(--color-text-secondary)]/60 text-center font-mono">
-          Personal-data detection runs locally first. Nothing leaves until you approve.
-        </p>
+        {/* Separated Footer Text */}
+        <div className="mt-5 pt-3 border-t border-slate-200/80 text-center">
+          <p className="text-xs lg:text-sm font-mono text-slate-700 font-medium tracking-tight">
+            Personal-data detection runs locally first. Nothing leaves until you approve.
+          </p>
+        </div>
       </div>
     </div>
   );

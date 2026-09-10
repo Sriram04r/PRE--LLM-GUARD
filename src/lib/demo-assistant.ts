@@ -132,14 +132,14 @@ export function generateDemoReply(messages: DemoChatMessage[]): string {
 
   if (/^(hi|hey|hello|yo|sup)[\s!.,]*$/i.test(text.trim())) {
     return (
-      "Hello! I'm the PrivacyLens demo assistant. Try sending a message that contains personal details - an email, a phone number, or an SSN-style number - and watch PrivacyLens catch it before anything is sent.\n\n" +
+      "Hello! I'm the PRE LLM GUARD demo assistant. Try sending a message that contains personal details - an email, a phone number, or an SSN-style number - and watch PRE LLM GUARD catch it before anything is sent.\n\n" +
       "You can also drop in one of the sample files to see PDF and image scanning with visual redaction."
     );
   }
 
-  if (lower.includes("privacylens") || (lower.includes("how") && lower.includes("work"))) {
+  if (lower.includes("privacylens") || lower.includes("pre llm guard") || (lower.includes("how") && lower.includes("work"))) {
     return (
-      "PrivacyLens scans everything you type or attach - locally, before it is sent anywhere. Detected personal data hard-blocks the send button until you review it. You choose what gets redacted and what stays.\n\n" +
+      "PRE LLM GUARD scans everything you type or attach - locally, before it is sent anywhere. Detected personal data hard-blocks the send button until you review it. You choose what gets redacted and what stays.\n\n" +
       "This reply comes from the built-in demo assistant; connect a Gemini or Anthropic API key to chat with a live model."
     );
   }

@@ -21,7 +21,7 @@ export interface ChatMessage {
 }
 
 const SYSTEM_PROMPT =
-  "You are a helpful assistant inside PrivacyLens, a tool that redacts personal " +
+  "You are a helpful assistant inside PRE LLM GUARD, a tool that redacts personal " +
   "data before it reaches an AI. The user's messages may contain redaction " +
   "placeholders such as [NAME], [EMAIL], [PHONE], [ADDRESS], [SSN], or [SECRET]. " +
   "Answer as helpfully as if the real values were present - the redacted details " +

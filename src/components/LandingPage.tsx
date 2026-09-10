@@ -150,7 +150,7 @@ function Logo({ compact = false }: { compact?: boolean }) {
           compact ? "text-base" : "text-3xl"
         }`}
       >
-        PrivacyLens
+        PRE LLM GUARD
       </span>
     </div>
   );
@@ -342,7 +342,7 @@ function BrowserMock() {
           <ShieldCheck size={38} />
         </div>
         <div className="min-w-0">
-          <p className="font-bold">PrivacyLens Active</p>
+          <p className="font-bold">PRE LLM GUARD Active</p>
           <p className="mt-1 flex items-center gap-2 text-xs">
             <span className="h-2 w-2 rounded-full bg-[#079B8E]" />
             Scanning all messages
@@ -365,7 +365,7 @@ export function LandingPage() {
     <div className="min-h-screen overflow-x-hidden bg-[#FDFCFB] text-[#111827]">
       <header className="sticky top-0 z-30 border-b border-[#ECE9E4]/80 bg-[#FDFCFB]/85 backdrop-blur-xl">
         <nav className="mx-auto flex h-16 w-full max-w-[1500px] items-center justify-between px-11 max-lg:px-6 max-sm:px-4">
-          <a href={appPath("")} aria-label="PrivacyLens home">
+          <a href={appPath("")} aria-label="PRE LLM GUARD home">
             <Logo compact />
           </a>
           <div className="flex items-center gap-6 max-sm:gap-3">
@@ -418,7 +418,7 @@ export function LandingPage() {
           </h1>
 
           <p className="mt-7 max-w-[520px] text-[18px] leading-8 text-[#354154]">
-            PrivacyLens scans every message before it leaves your browser, detects sensitive
+            PRE LLM GUARD scans every message before it leaves your browser, detects sensitive
             information, and helps you redact it - so you can use AI with confidence.
           </p>
 
